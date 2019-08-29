@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>work-deck</title>
+	<link rel="stylesheet" type="text/css" href="css/work-deck.css">
+</head>
+<body>
+	<div>
+		<header class="page-header">
+			<div class="logo">M</div>
+		</header>
+		<main>
+			<div class="margin-auto wd-fit">
+				<div class="card-frame hold" id="todoBlock">
+					<center>Todo</center>
+				</div>
+				<div class="card-frame hold" id="doingBlock">
+					<center>Doing</center>
+				</div>
+				<div class="card-frame hold" id="doneBlock">
+					<center>Done</center>
+				</div>
+			</div>
+		</main>
+		
+	</div>
+
+	<script type="text/javascript">
+		let work = ["clean", "make side bar", "change theme color", "research indexDB", "Create Readme file"];
+
+		work.forEach((elt)=>{
+			newElement = document.createElement("div");
+			newElement.setAttribute("class", "card-item drag");
+			newElement.setAttribute("draggable", "true");
+			elt = newElement.innerText = elt;
+			document.querySelector(".hold").appendChild(newElement);
+
+		});
+	</script>
+
+	<script type="text/javascript">
+		let items = document.getElementsByClassName('drag');
+		let container = document.getElementsByClassName('hold');
+
+		for (var i = 0; i < items.length; i++) {
+			items[i].id= "item" + i;
+			// items[i].innerText= "Get Started " + i;
+		}
+
+		// drag start
+		for (var i = 0; i < items.length; i++) {
+			items[i].addEventListener('dragstart', (event)=>{
+				event.target.style.visibility ="hidden";
+				console.log(event.path[1].id)
+				if(event.path[1].id == "todoBlock"){
+					event.dataTransfer.setData("todoBlock", event.target.id);
+				}else if (event.path[1].id == "doingBlock") {
+					event.dataTransfer.setData("doingBlock", event.target.id);
+				}else{
+					// do something
+				}
+				console.log("dragstart", event);
+			});
+			items[i].addEventListener('dragend', (event)=>{
+				event.target.style.visibility ="visible";
+			});
+		}
+
+		// dragover
+		for (var i = 0; i < container.length; i++) {
+			container[i].addEventListener("dragover", (event)=>{
+				if (event.target.className.includes("hold")) {
+					event.preventDefault();
+					event.target.style.backgroundColor = "#4285f47a";
+				}
+			});
+
+			container[i].addEventListener("dragleave", (event)=>{
+				if (event.target.className.includes("hold")) {
+					event.target.style.backgroundColor = "";
+				}
+			});
+		}
+
+		// drop
+		for (var i = 0; i < container.length; i++) {
+			container[i].addEventListener("drop", (event)=>{
+				if (event.target.className.includes("hold")) {
+					event.preventDefault();
+					if (event.dataTransfer.getData("todoBlock") && event.target.id == "doingBlock") {
+						let data = event.dataTransfer.getData("todoBlock");
+						event.target.appendChild(document.getElementById(data));
+						event.target.style.backgroundColor = "";
+					}else if (event.dataTransfer.getData("doingBlock") && (event.target.id == "doneBlock"  || event.target.id == "todoBlock")) {
+						let data = event.dataTransfer.getData("doingBlock");
+						event.target.appendChild(document.getElementById(data));
+						event.target.style.backgroundColor = "";
+					}
+				}
+				event.target.style.backgroundColor = "";
+
+				for (var i = 0; i < doneBlock.children.length; i++) {
+					if(doneBlock.children[i].draggable){
+						doneBlock.children[i].draggable = false;
+						doneBlock.children[i].style.borderColor = "var(--google-green, #34a853)";
+						let tick = document.createElement('div');
+						tick.setAttribute("class", "tick");
+						doneBlock.children[i].appendChild(tick);
+					}
+				}
+			});
+		}
+	</script>
+</body>
+</html>

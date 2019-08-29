@@ -1,0 +1,88 @@
+:root{
+	--google-blue: #4285f4;
+	--google-red: #ea4335;
+	--google-green: #34a853;
+	--google-yellow: #fbbc05;
+
+	--download-tabs: #ececff;
+	--whitened-blue-buttons: #bbdefb;
+}
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "arial";
+	transition: .3s;
+}
+
+.page-header{
+	width: 100%;
+	height: 60px;
+	background-color: var(--google-blue, #4285f4);
+	color: white;
+	padding: 7px;
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	transition: .6s
+}
+
+.card-frame{
+	width: 250px;
+	/*height: 300px;*/
+	height: auto;
+	float: left;
+	margin: 13px;
+	padding: 13px;
+	border: 2px solid transparent;
+	border-radius: 7px;
+}
+
+.card-item{
+	width: 100%;
+	padding: 7px;
+	border: 2px solid #3470b3;;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	border-radius: 4px;
+	word-break: break-word;
+	line-height: 1.3;
+}
+
+.wd-fit{
+	width: fit-content;
+}
+
+center{
+	font-variant-caps: petite-caps;
+}
+
+.tick{
+	height: 25px;
+	width: 25px;
+	border-radius: 50%;
+	background-color: var(--google-green);
+	position: relative;
+    transform: rotate(-39deg);
+    transition-duration: 3s;
+    transition-delay: 1s;
+    margin: 13px auto auto auto;
+}
+
+.tick::before{
+    border-color: transparent;
+    width: 45%;
+    height: 15%;
+    border-left-color: white;
+    position: absolute;
+    content: " ";
+    z-index: 1100;
+    border-bottom-color: white;
+    border-width: 2px;
+    border-style: solid;
+    top: 42%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+}
+/*todoBlock doingBlock doneBlock*/
